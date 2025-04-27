@@ -6,7 +6,7 @@
 #' @return Binary RasterLayer (1 = change, 0 = no change)
 #' @importFrom EBImage otsu
 #' @export
-detect_change <- function(diff_raster, threshold = NULL,
+detect_chng <- function(diff_raster, threshold = NULL,
                           method = c("fixed", "otsu", "kmeans")) {
 
   method <- match.arg(method)
