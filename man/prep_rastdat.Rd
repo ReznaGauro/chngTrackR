@@ -14,41 +14,10 @@ prep_rastdat(
   verbose = TRUE
 )
 }
-\arguments{
-\item{before_raster}{RasterLayer representing the "before" state.}
-
-\item{after_raster}{RasterLayer representing the "after" state.}
-
-\item{target_resolution}{Numeric vector of length 2 (xres, yres) for output
-resolution. If NULL, keeps resolution of
-\code{before_raster}.}
-
-\item{resample_method}{Character. Resampling method: "bilinear" (for continuous
-data) or "ngb" (nearest neighbor for categorical data).}
-
-\item{na_action}{How to handle NA values: "replace" (fill with \code{na_value}) or
-"ignore" (leave as NA).}
-
-\item{na_value}{Value to replace NAs with if \code{na_action = "replace"}.}
-
-\item{verbose}{Logical. Print processing messages? (Default: TRUE).}
-}
 \value{
-A list with two elements:
-\itemize{
-\item \code{before}: Processed "before" raster.
-\item \code{after}: Processed "after" raster.
-}
+A list with processed "before" and "after" rasters
 }
 \description{
 Aligns and preprocesses two rasters (before/after) for change detection.
 Handles resampling, NA values, and ensures spatial compatibility.
-}
-\examples{
-\dontrun{
-library(raster)
-r1 <- raster(nrows = 100, ncols = 100, vals = runif(10000))
-r2 <- raster(nrows = 150, ncols = 150, vals = runif(22500))
-processed <- prep_rastdat(r1, r2, target_resolution = c(0.5, 0.5))
-}
 }
