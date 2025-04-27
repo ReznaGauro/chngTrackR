@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_rastdat.R
 \name{prep_rastdat}
 \alias{prep_rastdat}
-\title{Preprocess Raster Data for Change Detection Analysis}
+\title{Preprocess Raster Data for Change Detection}
 \usage{
 prep_rastdat(
   before_raster,
@@ -14,10 +14,24 @@ prep_rastdat(
   verbose = TRUE
 )
 }
+\arguments{
+\item{before_raster, }{after_raster RasterLayer objects}
+
+\item{after_raster}{A RasterLayer or SpatRaster representing the "after" time period.}
+
+\item{target_resolution}{Numeric vector (xres, yres) or NULL}
+
+\item{resample_method}{"bilinear" or "ngb"}
+
+\item{na_action}{"replace" or "ignore"}
+
+\item{na_value}{Replacement value for NAs}
+
+\item{verbose}{Print progress messages?}
+}
 \value{
-A list with processed "before" and "after" rasters
+List of processed rasters
 }
 \description{
-Aligns and preprocesses two rasters (before/after) for change detection.
-Handles resampling, NA values, and ensures spatial compatibility.
+Preprocess Raster Data for Change Detection
 }
