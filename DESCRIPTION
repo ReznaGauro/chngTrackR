@@ -2,7 +2,11 @@ Package: chngTrackR
 Type: Package
 Title: Change Detection and Visualization Tools
 Version: 0.1.0
-Authors@R: Rejina Gauro
+Authors@R: 
+    person(given = "Rejna", 
+           family = "Gauro", 
+           role = c("aut", "cre"), 
+           email = "your_email@example.com")
 Maintainer: Rejina Gauro <rejina.gauro@stud-mail.uni-wuerzburg.de>
 Description: Tools for detecting, analyzing, and visualizing spatial changes using raster time series.
 License: MIT + file LICENSE
