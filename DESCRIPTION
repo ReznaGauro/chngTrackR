@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"), 
            email = "reznagauro09@gmail.com")
 Maintainer: Rejina Gauro <rejina.gauro@stud-mail.uni-wuerzburg.de>
-Description: Tools for detecting, analyzing, and visualizing spatial changes using raster time series.
+Description: A package to perform raster change detection and track changes over time.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -19,7 +19,11 @@ Depends:
 Imports: 
         raster,
         stats,
-        EBImage
+        EBImage,
+        ggplot2,
+        magick,
+        grDevices,
+        utils
 Suggests: 
     testthat
 URL: https://github.com/ReznaGauro/chngTrackR
