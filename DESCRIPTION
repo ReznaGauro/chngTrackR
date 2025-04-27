@@ -18,7 +18,8 @@ Depends:
     R (>= 4.0.0)
 Imports: 
         raster,
-        terra
+        stats,
+        EBImage
 Suggests: 
     testthat
 URL: https://github.com/ReznaGauro/chngTrackR

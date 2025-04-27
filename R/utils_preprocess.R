@@ -1,7 +1,10 @@
-# Internal Helper Functions for changTrackR Package
+# Preprocessing Helpers for prep_rastdat function
 #
-# These functions support the main package functions but are not exported for user access.
-# Use @keywords internal to prevent public documentation.
+# All functions related to raster preparation for change detection.
+# @keywords internal
+# @noRd
+NULL
+
 
 #' Validate Raster Inputs
 #'
