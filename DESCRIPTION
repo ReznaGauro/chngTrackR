@@ -12,6 +12,19 @@ Description: Tools for detecting, analyzing, and visualizing spatial changes usi
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE)RoxygenNote: 7.2.3
+Depends: 
+    R (>= 4.0.0)
+Imports:
+    raster,
+    terra,
+    ggplot2,
+    dplyr,
+    sf,
+    animation,
+    gganimate,
+    magick
+Suggests: 
+    testthat
 URL: https://github.com/ReznaGauro/chngTrackR
 BugReports: https://github.com/ReznaGauro/chngTrackR/issues
