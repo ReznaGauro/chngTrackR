@@ -4,7 +4,12 @@ chngTrackR is a lightweight R package designed for efficient change detection in
 
 ## Key area of applications:
 
-Whether you're analyzing deforestation, land cover change, urban sprawl, or post-disaster impacts, chngTrackR helps you quickly identify and visualize spatial changes over time.
+The chngTrackR package can be used for spatial and temporal change detection using a simple and efficient image differencing approach. It supports a wide range of applications across environmental, urban, and disaster-related domains, including:
+
+-   Forest and Land Cover Change
+-   Urban Expansion and Sprawl
+-   Mapping change in vegetation or land cover before/after disasters
+-   Identifying shifts between agricultural and non-agricultural land
 
 ## Installation
 
@@ -25,7 +30,7 @@ devtools::install_github("ReznaGauro/chngTrackR")
 
 ## Example: Forest Cover Change Detection (2010–2020)
 
-Here is the example usage which demonstrates how to use chngTrackR to detect land cover changes using classified raster data from two time periods.. This example showcases the forest cover change detection of forest cover type classification in Denmark (one of the Baltic sea region forest). Data from the Landsat 5 and Landsat 8 sensors are used for two different time steps. For this example, Landsat 5 (2010) and Landsat 8 (2020) classifications are stored in the package:
+Here is the example usage which demonstrates how to use chngTrackR to detect forest cover changes using classified raster data from two time periods.. This example showcases the forest cover change detection in Denmark (a region in the Baltic sea forest area). Data from the Landsat 5 and Landsat 8 sensors are used for two different time steps. For this example, Landsat 5 (2010) and Landsat 8 (2020) classifications are stored in the package:
 
 -   X0063_Y0029_2010_Classification.tif: 2010 land cover classes (Broadleaved, Coniferous, Water, Others)
 
@@ -50,6 +55,7 @@ library(ggspatial)
 library(caret)
 library(viridis)
 library(tidyterra)
+library(purrr)
 
 # Use system.file to access included example data
 before_path <- system.file("extdata", "X0063_Y0029_2010_Classification.tif", package = "chngTrackR")
@@ -98,9 +104,14 @@ processed <- prep_rastdat(
 
 ![](man/figures/preprocessed.png)
 
+(Note: This plot was generated using the ggplot2 package. The corresponding code is external and not included within the package's R scripts.)
+
 ## Part 3: Perform change detection
 
-In this part, we use calc_diff to compute pixel-wise class transitions (method = "simple" flags any class change as 1), And, detect_change() to apply a fixed threshold (0.5) to isolate significant changes.
+In this part, we use:
+
+-   calc_diff to compute pixel-wise class transitions (method = "simple" flags any class change as 1).
+-   detect_change() to apply a fixed threshold (0.5) to isolate significant changes.
 
 ```         
 # Convert to numeric format
@@ -117,7 +128,7 @@ change_mask <- detect_change(class_diff, method = "fixed", threshold = 0.5) %>%
 
 ## Part 4: Post-Process change mask
 
-This function cleans noise using morphological closing (3x3 kernel). Reclassify and label outputs. Removes isolated pixels and smooths edges for clearer change areas.Supports multiple operations (closing, opening) and kernel size
+postprocess_mask function cleans noise using morphological closing (3x3 kernel). Reclassify and label outputs. Removes isolated pixels and smooths edges for clearer change areas.Supports multiple operations (closing, opening) and kernel size
 
 ```         
 clean_mask <- postprocess_mask(
@@ -149,7 +160,7 @@ print(change_plot)
 
 ## Part 5: Validate with Ground Truth:
 
-The final part Compares detected changes against ground truth points. Quantifies accuracy (91% overall accuracy, Kappa = 0.79). Works with rasterized validation data and outputs confusion matrices.
+The final function validate_results Compares detected changes against ground truth points. Quantifies accuracy (91% overall accuracy, Kappa = 0.79). Works with rasterized validation data and outputs confusion matrices.
 
 ```         
 # Prepare validation points
@@ -188,6 +199,10 @@ writeRaster(class_diff, file.path(output_dir, "class_diff.tif"), overwrite = TRU
 
 ![](man/figures/Validation.png)
 
+## Outcomes:
+
+Finally, you’ll get two output TIFFs: `changed_mask`, showing where changes occurred, and `class_transitioned`, detailing how classes shifted (e.g., broadleaved to coniferous). These are derived by comparing classified rasters from two years, allowing clear visualization and analysis of spatial change patterns.
+
 ## References:
 
 -   Validation points were randomly extracted using EnMAP-Box 3 QGIS plugin <https://plugins.qgis.org/plugins/enmapboxplugin/>
@@ -204,10 +219,10 @@ Custom Visualizations: Leverage ggplot2/tmap for tailored maps.
 
 ## Further Notes:
 
--   I am happy if you find chngTrackR package useful!
--   Also, there are many possible code improvements. Looking forward to any suggestions you might have!
 -   Stay tuned for updates with interactive maps and animated change timelines! 🌍🔍
+-   I hope that you find chngTrackR package useful!
+-   Also, there are many possible code improvements. Looking forward to any suggestions you might have!
 
 ## Acknowledgements:
 
-This is a submission for the course 'Introduction to Programming and Statistics for Remote Sensing and GIS' as part of the M.Sc. EAGLE program at the University of Würzburg. Also, immense thanks Dr. Martin Wegmann for the support during the development of the package.
+This is a submission for the course 'Introduction to Programming and Statistics for Remote Sensing and GIS' as part of the M.Sc. EAGLE program at the University of Würzburg. Also, I express my immense thanks to Dr. Martin Wegmann for the support during the development of the package.
