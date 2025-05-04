@@ -104,7 +104,6 @@ processed <- prep_rastdat(
 
 ![](man/figures/preprocessed.png)
 
-(Note: This plot was generated using the ggplot2 package. The corresponding code is external and not included within the package's R scripts.)
 
 ## Part 3: Perform change detection
 
@@ -207,7 +206,7 @@ For example:
 
 ![](man/figures/Final_Transition_Map.png)
 
-(Note: This plot was generated using the ggplot2 package. The corresponding code is external and not included within the package's R scripts.)
+(Note: This plot was generated using the ggplot2 package. The corresponding code is external and not included within the package's R scripts. Find in Additional Scripts folder)
 
 ## References:
 
