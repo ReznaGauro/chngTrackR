@@ -1,6 +1,6 @@
 Package: chngTrackR
 Type: Package
-Title: Change Detection and Visualization Tools
+Title: Robust Change Detection in Remote Sensing Imagery
 Version: 0.1.0
 Authors@R: 
     person(given = "Rejna", 
@@ -9,6 +9,11 @@ Authors@R:
            email = "reznagauro09@gmail.com")
 Maintainer: Rejina Gauro <rejina.gauro@stud-mail.uni-wuerzburg.de>
 Description: A package to perform raster change detection and track changes over time.
+             Implements image differencing workflows for detecting land cover changes 
+             in satellite/airborne imagery.Supports radiometric correction, spectral 
+             indices (NDVI/NDBI), adaptive thresholding (Otsu, k-means), and 
+             validation metrics. Designed for scalability with large rasters using 
+             modern spatial packages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,16 +21,17 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
     R (>= 4.0.0)
-Imports: 
-        raster,
-        stats,
-        EBImage,
-        ggplot2,
-        magick,
-        grDevices,
-        utils
+Imports:
+    terra,
+    autothresholdr,
+    ggplot2,
+    viridis,
+    caret,
+    magick,
+    methods
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat,
+    knitr
 URL: https://github.com/ReznaGauro/chngTrackR
 BugReports: https://github.com/ReznaGauro/chngTrackR/issues
 Config/testthat/edition: 3
