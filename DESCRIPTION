@@ -28,7 +28,7 @@ Imports:
     viridis,
     caret,
     magick,
-    methods,
+    methods
 Suggests: 
     testthat,
     knitr
