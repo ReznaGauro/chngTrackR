@@ -24,13 +24,9 @@ Depends:
 Imports:
     terra,
     autothresholdr,
-    ggplot2,
-    viridis,
     caret,
     magick,
-    methods,
-    dplyr,
-    ggnewscale,
+    methods
 Suggests: 
     testthat,
     knitr
