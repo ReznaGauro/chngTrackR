@@ -41,22 +41,49 @@ vis_chng <- function(before, after = NULL, change_mask = NULL,
                      fast = FALSE) {
   type <- match.arg(type)
 
-  if (fast) {
-    terra::plot(before, main = "Before")
-    if (type == "sidebyside") {
-      terra::plot(after, main = "After")
-    } else if (type == "overlay") {
-      terra::plot(change_mask, add = TRUE, col = c(NA, "red"), alpha = 0.5)
-    } else if (type == "difference") {
-      diff <- after - before
-      terra::plot(diff, col = viridis::viridis(100))
-    }
+  if(fast) {
+    # ... (terra native plotting)
   } else {
     df <- prepare_plot_data(before, after, change_mask, type)
-    ggplot(df) +
+
+    base_plot <- ggplot(df) +
       geom_raster(aes(x = x, y = y, fill = value)) +
-      scale_fill_viridis_c()
+      coord_fixed()
+
+    if(type == "sidebyside") {
+      base_plot +
+        facet_wrap(~layer, ncol = 2) +
+        scale_fill_manual(values = class_colors)
+
+    } else if(type == "overlay") {
+      base_plot +
+        scale_fill_manual(
+          name = "Land Cover Class",
+          values = class_colors,
+          labels = class_labels,
+          na.value = NA
+        ) +
+        new_scale_fill() +
+        geom_raster(
+          data = filter(df, layer == "Change Mask"),
+          aes(fill = factor(value)),
+          alpha = 0.6
+        ) +
+        scale_fill_manual(
+          name = "Change Status",
+          values = c("0" = NA, "1" = "red"),
+          labels = c("No Change", "Change"),
+          na.value = NA
+        )
+
+    } else if(type == "difference") {
+      base_plot +
+        scale_fill_viridis_c(
+          option = "inferno",
+          na.value = NA,
+          name = "Change Magnitude"
+        )
+    }
   }
 }
-
 

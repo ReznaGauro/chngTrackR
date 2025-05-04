@@ -38,9 +38,27 @@
 #' @keywords internal
 #' @noRd
 prepare_plot_data <- function(before, after = NULL, mask = NULL, type = "sidebyside") {
-  # Implementation to convert rasters to data frames
-  # Example: Extract coordinates and values
-  df <- as.data.frame(before, xy = TRUE)
+  # Handle different visualization types
+  if(type == "sidebyside") {
+    df_before <- terra::as.data.frame(before, xy = TRUE) %>%
+      mutate(layer = "Before")
+    df_after <- terra::as.data.frame(after, xy = TRUE) %>%
+      mutate(layer = "After")
+    df <- bind_rows(df_before, df_after)
+
+  } else if(type == "overlay") {
+    df_before <- terra::as.data.frame(before, xy = TRUE) %>%
+      mutate(layer = "Land Cover")
+    df_mask <- terra::as.data.frame(mask, xy = TRUE) %>%
+      mutate(layer = "Change Mask")
+    df <- bind_rows(df_before, df_mask)
+
+  } else if(type == "difference") {
+    diff <- after - before
+    df <- terra::as.data.frame(diff, xy = TRUE) %>%
+      mutate(layer = "Difference")
+  }
+
   names(df)[3] <- "value"
   return(df)
 }
