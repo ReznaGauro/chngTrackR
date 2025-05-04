@@ -203,6 +203,12 @@ writeRaster(class_diff, file.path(output_dir, "class_diff.tif"), overwrite = TRU
 
 Finally, you’ll get two output TIFFs: `changed_mask`, showing where changes occurred, and `class_transitioned`, detailing how classes shifted (e.g., broadleaved to coniferous). These are derived by comparing classified rasters from two years, allowing clear visualization and analysis of spatial change patterns.
 
+For example:
+
+![](man/figures/Final_Transition_Map.png)
+
+(Note: This plot was generated using the ggplot2 package. The corresponding code is external and not included within the package's R scripts.)
+
 ## References:
 
 -   Validation points were randomly extracted using EnMAP-Box 3 QGIS plugin <https://plugins.qgis.org/plugins/enmapboxplugin/>
