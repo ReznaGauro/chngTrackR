@@ -35,6 +35,7 @@
 #' }
 #'
 #' @importFrom terra as.data.frame
+#' @importFrom dplyr %>% mutate filter bind_rows
 #' @keywords internal
 #' @noRd
 prepare_plot_data <- function(before, after = NULL, mask = NULL, type = "sidebyside") {

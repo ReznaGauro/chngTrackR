@@ -28,7 +28,9 @@ Imports:
     viridis,
     caret,
     magick,
-    methods
+    methods,
+    dplyr,
+    ggnewscale,
 Suggests: 
     testthat,
     knitr
