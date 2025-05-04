@@ -5,33 +5,50 @@
 \title{Preprocess Raster Data for Change Detection}
 \usage{
 prep_rastdat(
-  before_raster,
-  after_raster,
-  target_resolution = NULL,
+  before,
+  after,
+  target_res = NULL,
   resample_method = "bilinear",
-  na_action = "replace",
-  na_value = 0,
+  radiometric_method = "histogram",
   verbose = TRUE
 )
 }
 \arguments{
-\item{before_raster, }{after_raster RasterLayer objects}
+\item{before}{A \code{SpatRaster} object representing the "before" image.}
 
-\item{after_raster}{A RasterLayer or SpatRaster representing the "after" time period.}
+\item{after}{A \code{SpatRaster} object representing the "after" image.}
 
-\item{target_resolution}{Numeric vector (xres, yres) or NULL}
+\item{target_res}{Optional. A numeric vector of length 2 specifying the target resolution in the form \code{c(xres, yres)}. If \code{NULL}, resolution of \code{before} raster is used.}
 
-\item{resample_method}{"bilinear" or "ngb"}
+\item{resample_method}{Character. Resampling method to apply when aligning resolutions. Either \code{"bilinear"} or \code{"near"}. Default is \code{"bilinear"}.}
 
-\item{na_action}{"replace" or "ignore"}
+\item{radiometric_method}{Character. Radiometric correction method to apply. Options are \code{"histogram"}, \code{"scaling"}, or \code{"none"}. Default is \code{"histogram"}.}
 
-\item{na_value}{Replacement value for NAs}
-
-\item{verbose}{Print progress messages?}
+\item{verbose}{Logical. If \code{TRUE}, prints progress messages during preprocessing. Default is \code{TRUE}.}
 }
 \value{
-List of processed rasters
+A named list containing preprocessed \code{SpatRaster} objects with elements:
+\describe{
+\item{before}{The processed "before" raster.}
+\item{after}{The processed "after" raster.}
+}
 }
 \description{
-Preprocess Raster Data for Change Detection
+This function prepares two \code{SpatRaster} objects (before and after images) for change detection analysis by aligning their coordinate reference systems, extents, and resolutions, applying optional radiometric correction, and handling missing values.
+}
+\examples{
+\dontrun{
+library(terra)
+before <- rast(system.file("extdata/before.tif", package = "changTrackR"))
+after <- rast(system.file("extdata/after.tif", package = "changTrackR"))
+
+processed <- prep_rastdat(before, after,
+                          target_res = c(30, 30),
+                          resample_method = "bilinear",
+                          radiometric_method = "histogram",
+                          verbose = TRUE)
+
+plot(processed$before)
+plot(processed$after)
+}
 }

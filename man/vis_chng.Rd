@@ -2,33 +2,52 @@
 % Please edit documentation in R/vis_chng.R
 \name{vis_chng}
 \alias{vis_chng}
-\title{Visualize Change Detection Results}
+\title{Plot Change Detection Results}
 \usage{
 vis_chng(
-  before_raster,
-  after_raster = NULL,
+  before,
+  after = NULL,
   change_mask = NULL,
-  type = c("sidebyside", "overlay", "difference")
+  type = c("sidebyside", "overlay", "difference"),
+  fast = FALSE
 )
 }
 \arguments{
-\item{before_raster}{A RasterLayer object representing the original (before) raster.}
+\item{before}{A \code{SpatRaster} object representing the raster data before change detection.}
 
-\item{after_raster}{A RasterLayer object representing the modified (after) raster.}
+\item{after}{A \code{SpatRaster} object representing the raster data after change detection (optional; required for certain plot types).}
 
-\item{change_mask}{A RasterLayer object representing the binary change mask.}
+\item{change_mask}{A \code{SpatRaster} object representing the binary change mask (optional; required for certain plot types).}
 
-\item{type}{A character string specifying the type of visualization. Possible values are:
+\item{type}{A character string specifying the plot type. Options include:
 \itemize{
-\item "sidebyside": Displays the before and after rasters side by side.
-\item "overlay": Displays the change mask overlayed on the original raster.
-\item "difference": Displays the difference between the before and after rasters.
+\item "sidebyside" : Display before and after rasters side by side.
+\item "overlay" : Overlay the change mask on top of the before raster.
+\item "difference" : Show the difference between the before and after rasters.
 }}
+
+\item{fast}{A logical value indicating whether to use terra's native plotting (faster for large rasters) or ggplot2 (default).
+If \code{TRUE}, native terra plotting is used for better performance.}
 }
 \value{
-A ggplot object containing the visualization of the change detection results.
+A \code{ggplot} object if \code{fast} is \code{FALSE}, or a \code{terra} plot if \code{fast} is \code{TRUE}.
 }
 \description{
-This function visualizes the change detection results between two raster images,
-either as a side-by-side comparison, an overlay of changes, or a difference map.
+This function visualizes the results of change detection by plotting the before and after rasters,
+along with the binary change mask. Different plot types are available, including side-by-side comparison,
+overlay of the change mask on the before raster, and difference visualization.
+}
+\examples{
+\dontrun{
+library(terra)
+# Load example rasters
+before <- rast(matrix(runif(100), nrow = 10))
+after <- rast(matrix(runif(100), nrow = 10))
+change_mask <- rast(matrix(sample(0:1, 100, replace = TRUE), nrow = 10))
+
+# Visualize change detection results
+vis_chng(before, after, change_mask, type = "overlay", fast = TRUE)
+vis_chng(before, after, change_mask, type = "sidebyside", fast = FALSE)
+}
+
 }

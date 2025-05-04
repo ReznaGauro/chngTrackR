@@ -2,22 +2,52 @@
 % Please edit documentation in R/calc_diff.R
 \name{calc_diff}
 \alias{calc_diff}
-\title{Calculate Pixel-wise Differences}
+\title{Calculate Differences Between Rasters}
 \usage{
 calc_diff(
-  before_raster,
-  after_raster,
-  method = c("simple", "absolute", "normalized")
+  before,
+  after,
+  method = c("simple", "absolute", "normalized", "index"),
+  index = NULL
 )
 }
 \arguments{
-\item{before_raster, after_raster}{RasterLayer objects}
+\item{before}{A \code{SpatRaster} object representing the "before" image.}
 
-\item{method}{"simple", "absolute", or "normalized"}
+\item{after}{A \code{SpatRaster} object representing the "after" image.}
+
+\item{method}{Character. Method to calculate differences. One of \code{"simple"}, \code{"absolute"}, \code{"normalized"}, or \code{"index"}. Default is \code{"simple"}.}
+
+\item{index}{Character. Required if \code{method = "index"}. The name of the index to compute (e.g., \code{"NDVI"}, \code{"NDBI"}).}
 }
 \value{
-Difference raster
+A \code{SpatRaster} object representing the difference map.
 }
 \description{
-Calculate Pixel-wise Differences
+Computes the difference between two \code{SpatRaster} objects using various methods,
+including simple subtraction, absolute difference, normalized difference, or index-based difference (e.g., NDVI).
+}
+\examples{
+\dontrun{
+library(terra)
+before <- rast(system.file("extdata/before.tif", package = "changTrackR"))
+after <- rast(system.file("extdata/after.tif", package = "changTrackR"))
+
+# Simple difference
+diff_simple <- calc_diff(before, after, method = "simple")
+plot(diff_simple)
+
+# Absolute difference
+diff_abs <- calc_diff(before, after, method = "absolute")
+plot(diff_abs)
+
+# Normalized difference
+diff_norm <- calc_diff(before, after, method = "normalized")
+plot(diff_norm)
+
+# Index-based difference (e.g., NDVI)
+ndvi_diff <- calc_diff(before, after, method = "index", index = "NDVI")
+plot(ndvi_diff)
+}
+
 }
