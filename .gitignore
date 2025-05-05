@@ -8,10 +8,5 @@
 .quarto
 inst/
 outputs/
-calc_diff.Rd
-detect_change.Rd
-postprocess_mask.Rd
-prep_rastdat.Rd
-validate_results.Rd
-changed_mask.tif
-class_transitioned.tif
+man/figures/changed_mask.tif
+man/figures/class_transitioned.tif

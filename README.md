@@ -104,7 +104,6 @@ processed <- prep_rastdat(
 
 ![](man/figures/preprocessed.png)
 
-
 ## Part 3: Perform change detection
 
 In this part, we use:

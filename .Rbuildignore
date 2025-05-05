@@ -2,3 +2,10 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^data-raw$
+^man/calc_diff.Rd
+^man/detect_change.Rd
+^man/postprocess_mask.Rd
+^man/prep_rastdat.Rd
+^man/validate_results.Rd
+^man/figures/changed_mask.tif
+^man/figures/class_transitioned.tif
